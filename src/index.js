@@ -22,7 +22,7 @@ app.use("/signup", usercontroller)
 app.use("/products", productcontroller)
 app.use("/login", logincontroller)
 
-app.listen(2345, async () => {
+app.listen(process.env.PORT || 5000, async () => {
     try {
 
         await connect()
