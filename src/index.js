@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 
 
-app.get("/maggi", (req, res) => {
+app.get("", (req, res) => {
 
     return res.send("maggi")
 })
