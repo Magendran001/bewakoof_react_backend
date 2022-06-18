@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
     try {
 
-        let wishlist = await Wishlist.find(req.params.id).populate('product_id').lean().exec();
+        let wishlist = await Wishlist.find({ user_id: req.params.id }).populate('product_id').lean().exec();
 
 
         return res.send(wishlist)
