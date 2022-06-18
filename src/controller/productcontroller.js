@@ -9,12 +9,12 @@ const router = express.Router();
 router.get("", async (req, res) => {
   try {
 
-    console.log(req.query.category)
 
 
 
-    const product = await Product.aggregate([{ $match: { name: "S", stock_status: false } }]);
-    console.log(product)
+
+    const product = await Product.find({}).lean().exec();
+
 
     return res.send(product);
   } catch (err) {

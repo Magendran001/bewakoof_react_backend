@@ -6,7 +6,8 @@ require("dotenv").config();
 const connect = require("./config/db.js");
 const productcontroller = require("./controller/productcontroller");
 const usercontroller = require("./controller/usercontroller");
-const logincontroller = require("./controller/logincontroller")
+const logincontroller = require("./controller/logincontroller");
+const wishlistcontroller = require("./controller/wishlistcontroller")
 app.use(express.json())
 app.use(cors())
 
@@ -22,6 +23,7 @@ app.use("/signup", usercontroller)
 
 app.use("/products", productcontroller)
 app.use("/login", logincontroller)
+app.use("/wishlist", wishlistcontroller)
 
 app.listen(process.env.PORT || 5000, async () => {
     try {
