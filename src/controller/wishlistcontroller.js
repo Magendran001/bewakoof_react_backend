@@ -3,10 +3,10 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
-        console.log("wishlist")
-        let wishlist = await Wishlist.find().populate('product_id').lean().exec();
+
+        let wishlist = await Wishlist.find(req.params.id).populate('product_id').lean().exec();
 
 
         return res.send(wishlist)
