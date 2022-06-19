@@ -12,22 +12,28 @@ router.get("/:id", async (req, res) => {
         return res.send(wishlist)
 
     }
-    catch {
-
+    catch (err) {
+        return res.send({ err: err.message })
     }
 })
 
-router.get("/:id", async (req, res) => {
+
+
+
+router.delete("/:id", async (req, res) => {
     try {
 
-        let wishlist = await Wishlist.find(req.params.id).lean().exec();
+        let wishlist = await Wishlist.findByIdAndDelete(req.params.id).lean().exec();
+
+
         return res.send(wishlist)
 
     }
-    catch {
-
+    catch (err) {
+        return res.send({ err: err.message })
     }
 })
+
 
 router.post("", async (req, res) => {
     try {
