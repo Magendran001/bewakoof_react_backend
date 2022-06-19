@@ -24,12 +24,13 @@ router.delete("/:id", async (req, res) => {
     try {
 
         let wishlist = await Wishlist.findByIdAndDelete(req.params.id).lean().exec();
+        console.log(wishlist)
 
 
         return res.send(wishlist)
 
     }
-    catch (err) {
+    catch (err) {   
         return res.send({ err: err.message })
     }
 })
