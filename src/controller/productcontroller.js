@@ -21,6 +21,59 @@ router.get("", async (req, res) => {
     return res.status(500).send(err.message);
   }
 });
+
+router.get("/:category", async (req, res) => {
+  try {
+
+    console.log(req.query, "query")
+
+    let obj = {};
+    let sort = {};
+    obj.category = req.params.category;
+
+    if (req.query?.size && req.query?.size !== "null") {
+
+
+      obj.product_sizes = { $elemMatch: { name: req.query.size, stock_status: true } }
+
+
+    }
+    if (req.query?.color && req.query?.color != "null") {
+
+      obj.color = req.query.color;
+
+    }
+
+    if (req.query.sort && req.query?.sort != "null") {
+      sort.price = req.query.sort;
+    }
+    if (req.query.rating && req.query?.rating != "null") {
+      obj.average_rating = { $gte: req.query.rating }
+    }
+    if (req.query?.discount && req.query?.discount != "null") {
+      obj.product_discount = { $gte: req.query.discount };
+    }
+
+    if (req.query.brand && req.query.brand) {
+      if (req.query.brand == "bewakoof") {
+        obj.manufacturer_brand = { $ne: req.query.Bewakoof }
+      }
+
+      else {
+        obj.manufacturer_brand = { $ne: "Bewakoof" }
+      }
+    }
+
+
+    console.log(obj, "obj")
+
+
+    const product = await Product.find(obj).sort(sort).lean();
+    return res.send(product);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+});
 router.get("/:category", async (req, res) => {
   try {
 
